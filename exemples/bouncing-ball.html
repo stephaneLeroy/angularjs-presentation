@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../css/prettify.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/slide.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/bouncing-ball.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/angular.js"></script>
+    <script type="text/javascript" src="../js/prettify.js"></script>
+    <script type="text/javascript" src="../js/bouncing-ball.js"></script>
+    <title>Bouncing ball</title>
+</head>
+<body>
+<div class="content-min">
+        <pre class="prettyprint lang-html">
+&lt;div ng-app=&quot;animateApp&quot; ng-controller=&quot;AnimateCtrl&quot;&gt;
+    &lt;div&quot;&gt;
+        &lt;super-ball ng-repeat=&quot;shape in shapes&quot;
+              x=&quot;shape.x&quot; y=&quot;shape.y&quot; color=&quot;shape.color&quot; /&gt;
+    &lt;/div&gt;
+    &lt;a ng-click=&quot;add()&quot;&gt;Push&lt;/a&gt;&lt;a ng-click=&quot;remove()&quot;&gt;Pop&lt;/a&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    angular.module('animateApp', []).directive('ball', function ($timeout) {
+    return {
+        restrict:'E',
+        link:function (scope, element, attrs) {
+            element.addClass('circle');
+            scope.$watch(attrs.x, function (x) { element.css('left', x + 'px'); });
+            scope.$watch(attrs.y, function (y) { element.css('top', y + 'px');  });
+            scope.$watch(attrs.color, function (color) {
+                         element.css('backgroundColor', color); });
+        }
+    };
+});
+  /* AnimateCtrl (Controlleur) */
+  /* Alimentation de 'shapes' et animation des coordonn&eacute;es */
+&lt;/script&gt;
+        </pre>
+
+    <div ng-app="animateApp" ng-controller="AnimateCtrl">
+        <div>
+            <super-ball ng-repeat="shape in shapes"
+                  x="shape.x" y="shape.y" color="shape.color" />
+        </div>
+        <a ng-click="add()" class="btn btn-info">Push</a>
+        <a ng-click="remove()" class="btn btn-danger">Pop</a>
+    </div>
+    <script>prettyPrint();</script>
+</div>
+</body>
+</html>

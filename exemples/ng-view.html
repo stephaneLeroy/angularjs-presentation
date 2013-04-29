@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../css/prettify.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/slide.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/angular.js"></script>
+    <script type="text/javascript" src="../js/prettify.js"></script>
+    <title>Ng-View</title>
+</head>
+<body>
+    <div class="content-default">
+        <pre class="prettyprint lang-html">
+&lt;!--Main --&gt;
+&lt;div ng-app=&quot;multi-view&quot; ng-view&gt;&lt;/div&gt;
+&lt;!-- list.html --&gt;
+&lt;ul ng-repeat=&quot;name in names&quot;&gt;
+    &lt;li&gt;&lt;a href=&quot;#/hello/{{name}}&quot;&gt;{{name}}&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- hello.html --&gt;
+&lt;h1&gt;Hello {{name}}&lt;/h1&gt;
+&lt;a href=&quot;#/&quot;&gt;back&lt;/a&gt;
+&lt;script&gt;
+    angular.module('multi-view', []).
+        config(function($routeProvider) {
+            $routeProvider.
+                    when('/', {controller:ListCtrl, templateUrl:'partials/list.html'}).
+                    when('/hello/:name', {controller:HelloCtrl, templateUrl:'partials/hello.html'}).
+                    otherwise({redirectTo:'/'});
+        });
+    function ListCtrl($scope) {
+        $scope.names = ['Batman', 'Robin', 'Angular.js'];
+    }
+    function HelloCtrl($scope, $routeParams) {
+        $scope.name = $routeParams.name;
+    }
+&lt;/script&gt;
+        </pre>
+        <div ng-app="multi-view" ng-view>
+        </div>
+        <script>
+            prettyPrint();
+            angular.module('multi-view', [])
+                    .config(function($routeProvider) {
+                        $routeProvider.
+                                when('/', {controller:ListCtrl, templateUrl:'partials/list.html'}).
+                                when('/hello/:name', {controller:HelloCtrl, templateUrl:'partials/hello.html'}).
+                                otherwise({redirectTo:'/'});
+                    });
+            function ListCtrl($scope) {
+                $scope.names = ['Batman', 'Robin', 'Angular.js'];
+            }
+            function HelloCtrl($scope, $routeParams) {
+                $scope.name = $routeParams.name;
+            }
+        </script>
+    </div>
+</body>
+</html>

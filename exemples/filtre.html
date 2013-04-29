@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../css/prettify.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/slide.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/angular.js"></script>
+    <script type="text/javascript" src="../js/prettify.js"></script>
+    <title>Filtre</title>
+</head>
+<body>
+    <div class="content-min">
+        <pre class="prettyprint lang-html">
+&lt;div ng-app&gt;
+    &lt;table ng-init=&quot;characters = [{'name': 'Batman', 'status': 'super hero'},{...}];
+            status = ['super hero','super mechant'] ;&quot;&gt;
+        &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Name &lt;input type=&quot;text&quot; ng-model=&quot;search.name&quot;&gt;&lt;/th&gt;
+            &lt;th&gt;Status
+                &lt;select ng-model=&quot;search.status&quot; ng-options=&quot;s for s in status&quot;&gt;
+                    &lt;option value=&quot;&quot;&gt;--&lt;/option&gt;
+                &lt;/select&gt;&lt;/th&gt;&lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tr ng-repeat=&quot;character in characters | filter:search&quot;&gt;
+            &lt;td&gt;{{character.name}}&lt;/td&gt;&lt;td&gt;{{character.status}}&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+        </pre>
+
+        <div ng-app>
+            <table ng-controller="AngularBug" class="table table-hover" ng-init="characters = [
+              {'name': 'Batman', 'status': 'super hero'},
+              {'name': 'Joker',   'status': 'super mechant'},
+              {'name': 'IronMan',   'status': 'super hero'}]; status = ['super hero','super mechant'] ;">
+               <thead><tr><th>Names <input type="text" ng-model="search.name" class="search-query input-small"></th>
+                   <th>Status
+                   <select class="" ng-model="search.status" ng-options="s for s in status">
+                       <option value="">--</option>
+                   </select></th></tr>
+               </thead>
+               <tr ng-repeat="character in characters | filter:search">
+                    <td>{{character.name}}</td><td>{{character.status}}</td>
+               </tr>
+            </table>
+        </div>
+        <!-- BUG Angular.js sur les filtres à partir d'une option vide -->
+        <script>
+            prettyPrint();
+            function AngularBug($scope) {
+                $scope.search = {status: ''};
+                $scope.$watch('search.status', function(newValue, oldValue) {
+                    if (newValue === null) {
+                        $scope.search.status = '';
+                    }
+                });
+            }
+        </script>
+    </div>
+</body>
+</html>

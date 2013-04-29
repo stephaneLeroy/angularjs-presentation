@@ -1,0 +1,30 @@
+body {
+    height: 100%;
+    background: none;
+}
+
+.content {
+    zoom: 1.6;
+    text-align: center;
+}
+
+.content-min {
+    zoom: 1.35;
+    text-align: center;
+}
+.content-default {
+    zoom: 1.1;
+    text-align: center;
+}
+pre.prettyprint, ul {
+    text-align: left;
+    height: auto;
+    margin-bottom: 5px;
+}
+.pln:last-child{
+    height: 0px;
+    display: compact;
+}
+.middle {
+    vertical-align: text-bottom;
+}

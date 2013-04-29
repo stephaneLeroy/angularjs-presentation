@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../css/prettify.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../css/slide.css" type="text/css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../js/angular.js"></script>
+    <script type="text/javascript" src="../js/prettify.js"></script>
+    <title>Service</title>
+</head>
+<body>
+    <div class="content-min">
+        <pre class="prettyprint lang-html">
+&lt;div ng-app=&quot;H2G2&quot;&gt;
+    &lt;div ng-controller=&quot;DeepThoughtController&quot;&gt;
+        &lt;a href ng-click=&quot;reset()&quot;&gt;reset&lt;/a&gt;
+        &lt;a href ng-click=&quot;compute(6,9)&quot;&gt;compute&lt;/a&gt; {{response}}
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    angular.module('H2G2',['DeepThought']);
+    angular.module('DeepThought', []).factory('deepThought', function() {
+        var deepThought = {};
+        deepThought.compute = function(param) {...}
+        return deepThought;
+    });
+    var DeepThoughtController = function($scope, deepThought) {
+        $scope.reset = function () { $scope.response = &quot;DeepThought~&gt; ZzzZz...&quot;;}
+        $scope.reset();
+        $scope.compute = function(param1, param2) {
+            $scope.response = &quot;La r&eacute;ponse est &quot; + deepThought.compute(param1 * param2);
+        };
+    };
+&lt;/script&gt;
+        </pre>
+
+        <div ng-app="H2G2">
+            <div ng-controller="DeepThoughtController">
+                <a href class="btn btn-info" ng-click="reset()">reset</a>
+                <a href class="btn btn-danger" ng-click="compute(6,9)">compute</a> {{response}}
+            </div>
+        </div>
+
+        <script>
+            prettyPrint();
+            angular.module('H2G2',['DeepThought']);
+            angular.module('DeepThought', []).service('deepThought', function() {
+                    var deepThought = {};
+                    function base10to13(number, index, acc) {
+                        if(acc === undefined) { acc = []; index = 0;}
+                        if(number == 0) return acc.reverse().join("");
+                        acc[index++] = number % 13 ;
+                        return base10to13(Math.floor(number / 13), index, acc);
+                    }
+                    deepThought.compute = function(param) {
+                        return base10to13(param);
+                    }
+                    return deepThought;
+            });
+            var DeepThoughtController = function($scope, deepThought) {
+                $scope.reset = function () { $scope.response = "DeepThought~> ZzzZz...";}
+                $scope.reset();
+                $scope.compute = function(param1, param2) {
+                    $scope.response = "La réponse est " + deepThought.compute(param1 * param2);
+                };
+            };
+        </script>
+    </div>
+</body>
+</html>
