@@ -101,6 +101,9 @@
                 <span class="feature-tag">CLAUDE.md</span>
                 <span class="feature-tag">/memory</span>
             </div>
+            <div class="speaker-hint">
+                Glisser un <b>/btw "c'est quoi la diff entre CLAUDE.md projet et user ?"</b> pour montrer les questions en aparté sans polluer le contexte.
+            </div>
         </div>
 
         <!-- SLIDE 6 — La Boîte à Outils -->
@@ -234,10 +237,10 @@
             <ul class="command-list">
                 <li><span class="cmd">/compact</span> <span class="cmd-desc">Compresser le contexte</span></li>
                 <li><span class="cmd">/cost</span> <span class="cmd-desc">Tokens &amp; coûts en temps réel</span></li>
-                <li><span class="cmd">/context</span> <span class="cmd-desc">Visualiser la fenêtre de contexte</span></li>
                 <li><span class="cmd">/diff</span> <span class="cmd-desc">Review interactif des modifications</span></li>
-                <li><span class="cmd">/model</span> <span class="cmd-desc">Changer de modèle à la volée</span></li>
-                <li><span class="cmd">!cmd</span> <span class="cmd-desc">Exécuter du bash directement</span></li>
+                <li><span class="cmd">/rewind</span> <span class="cmd-desc">Annuler les changements (Esc×2)</span></li>
+                <li><span class="cmd">/fork</span> <span class="cmd-desc">Cloner la conversation</span></li>
+                <li><span class="cmd">/btw</span> <span class="cmd-desc">Question en aparté</span></li>
             </ul>
         </div>
 
@@ -261,6 +264,10 @@
                 <span class="feature-tag">/context</span>
                 <span class="feature-tag">Ctrl+T</span>
                 <span class="feature-tag">Agentic loop</span>
+            </div>
+            <div class="speaker-hint">
+                Bon moment pour <b>/btw</b> : poser une question rapide sans casser le flow.<br>
+                Aussi tester <b>Alt+T</b> (Extended Thinking) si le bug est complexe.
             </div>
         </div>
 
@@ -307,15 +314,15 @@
                     <span class="level-desc">Orchestre des sub-agents en parallèle (1 terminal, safe)</span>
                 </div>
                 <div class="parallel-level">
-                    <span class="level-name">Sub-agents</span>
-                    <span class="level-desc">Workers isolés dans la même session</span>
+                    <span class="level-name">Worktrees</span>
+                    <span class="level-desc"><code>claude -w nom</code> : copie isolée du repo, branche dédiée</span>
                 </div>
                 <div class="parallel-level">
                     <span class="level-name">Agent Teams</span>
-                    <span class="level-desc">Plusieurs terminaux, task list partagée, messages peer-to-peer</span>
+                    <span class="level-desc">Multi-terminaux + worktrees + coordination automatique</span>
                 </div>
             </div>
-            <p class="hint">Bonne pratique : séparer les fichiers par agent pour éviter les conflits</p>
+            <p class="hint">Worktrees = chaque agent a son propre répertoire, zéro conflit</p>
         </div>
 
         <!-- SLIDE 15 — DÉMO 5a : /batch -->
@@ -339,22 +346,23 @@
             </div>
         </div>
 
-        <!-- SLIDE 15b — DÉMO 5b : Agent Teams -->
+        <!-- SLIDE 15b — DÉMO 5b : Agent Teams + Worktrees -->
         <div id="demo-5b" class="step slide-demo"
              data-x="-1800" data-y="3600" data-z="200"
              data-rotate-y="5">
             <div class="demo-number">Démo 5b</div>
-            <h2>Agent Teams — Multi-terminal</h2>
-            <div class="demo-description">2 Claude côte à côte. Task list partagée. Coordination automatique.</div>
+            <h2>Agent Teams + Worktrees</h2>
+            <div class="demo-description">2 Claude dans des worktrees isolés. Zéro conflit de fichiers.</div>
             <div class="code-block">
-                <span class="comment"># --teammate-mode tmux</span><br>
-                <span class="prompt">T1&gt;</span> <span class="command">Leaderboard animé (admin.*)</span><br>
-                <span class="prompt">T2&gt;</span> <span class="command">Animations streak (player.*)</span><br><br>
-                <span class="comment"># Messages entre agents :</span><br>
-                <span style="color:var(--accent-blue)">"J'ai terminé le leaderboard"</span><br>
-                <span style="color:var(--accent-purple)">"OK, je mets à jour les refs player"</span>
+                <span class="comment"># Worktrees : chaque agent a sa copie isolée</span><br>
+                <span class="prompt">$</span> <span class="command">claude -w leaderboard</span> <span class="comment"># T1 : worktree dédié</span><br>
+                <span class="prompt">$</span> <span class="command">claude -w animations</span> <span class="comment"># T2 : worktree dédié</span><br><br>
+                <span class="comment"># --teammate-mode tmux : coordination</span><br>
+                <span style="color:var(--accent-blue)">"Leaderboard prêt, branche worktree-1"</span><br>
+                <span style="color:var(--accent-purple)">"Animations streak terminées, merge OK"</span>
             </div>
             <div class="features-shown">
+                <span class="feature-tag">Worktrees -w</span>
                 <span class="feature-tag">Agent Teams</span>
                 <span class="feature-tag">Shared tasks</span>
                 <span class="feature-tag">Messages P2P</span>
@@ -368,34 +376,39 @@
              data-rotate-y="0">
             <h2>Git Workflow Intégré</h2>
             <div class="code-block">
-                <span class="prompt">claude&gt;</span> <span class="command">/commit</span> <span class="comment"># message auto intelligent</span><br>
-                <span class="prompt">claude&gt;</span> <span class="command">/review</span> <span class="comment"># revue de code</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Commit avec un bon message</span> <span class="comment"># git natif</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/security-review</span> <span class="comment"># scan de sécurité</span><br>
                 <span class="prompt">claude&gt;</span> <span class="command">Crée une PR avec un résumé</span><br><br>
                 <span class="comment"># Worktrees : branches isolées en parallèle</span><br>
-                <span class="prompt">$</span> <span class="command">claude -w feature-branch</span>
+                <span class="prompt">$</span> <span class="command">claude -w feature-branch</span><br>
+                <span class="comment"># /rewind : annuler les changements de Claude</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/rewind</span> <span class="comment"># Esc×2 aussi</span>
             </div>
             <div class="quote">Du code local au repo partagé en un prompt</div>
         </div>
 
-        <!-- SLIDE 17 — DÉMO 6 : Bug fix + /commit -->
+        <!-- SLIDE 17 — DÉMO 6 : Bug fix + Git -->
         <div id="demo-6" class="step slide-demo"
              data-x="-2600" data-y="1600" data-z="200"
              data-rotate-y="-5">
             <div class="demo-number">Démo 6</div>
-            <h2>Bug fix + /commit</h2>
+            <h2>Bug fix + Git</h2>
             <div class="demo-description">On teste, on casse, Claude diagnostique et corrige.<br>Puis commit propre.</div>
             <div class="code-block">
                 <span class="comment"># On teste le quiz → bug trouvé !</span><br>
                 <span class="prompt">claude&gt;</span> <span class="command">Quand un joueur se reconnecte,</span><br>
                 <span class="command">son score est perdu. Corrige ça.</span><br><br>
                 <span class="comment"># Diagnostic → Fix → Test → ✅</span><br>
-                <span class="prompt">claude&gt;</span> <span class="command">/commit</span>
+                <span class="prompt">claude&gt;</span> <span class="command">Commit et pousse les changements</span>
             </div>
             <div class="features-shown">
-                <span class="feature-tag">/commit</span>
-                <span class="feature-tag">Git</span>
+                <span class="feature-tag">Git natif</span>
                 <span class="feature-tag">Debug loop</span>
-                <span class="feature-tag">/review</span>
+                <span class="feature-tag">/diff</span>
+            </div>
+            <div class="speaker-hint">
+                <b>/rewind</b> : si le fix casse autre chose, montrer Esc×2 pour annuler les changements (code, contexte, ou les deux).<br>
+                <b>/remote-control</b> : moment idéal — scanner le QR code depuis le téléphone et montrer le contrôle à distance.
             </div>
         </div>
 
@@ -476,13 +489,82 @@
             <div class="features-shown">
                 <span class="feature-tag">Custom Hooks</span>
                 <span class="feature-tag">Custom Skills</span>
-                <span class="feature-tag">/commit</span>
+                <span class="feature-tag">Git natif</span>
+            </div>
+            <div class="speaker-hint">
+                <b>Chrome integration</b> : "Va sur localhost:3000, vérifie que le quiz s'affiche bien, teste un clic sur une réponse".<br>
+                Nécessite l'extension Claude in Chrome (v1.0.36+).
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             MICRO-DÉMOS : FEATURES BONUS
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 20b — Micro-démo : /fork -->
+        <div id="micro-fork" class="step slide-micro-demo"
+             data-x="0" data-y="-400" data-z="600"
+             data-rotate-y="-5">
+            <div class="demo-number">Micro-démo</div>
+            <h2>/fork — Explorer sans risque</h2>
+            <div class="demo-description">Cloner la conversation pour tester un chemin alternatif.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/fork alternative-ui</span><br>
+                <span class="comment"># Nouvelle session avec tout l'historique</span><br>
+                <span class="comment"># L'original reste intact</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Et si on refaisait l'UI en dark mode ?</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">/fork</span>
+                <span class="feature-tag">Exploration safe</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 20c — Micro-démo : /security-review + /stats -->
+        <div id="micro-security" class="step slide-micro-demo"
+             data-x="0" data-y="-1000" data-z="400"
+             data-rotate-y="0">
+            <div class="demo-number">Micro-démo</div>
+            <h2>Sécurité &amp; Stats</h2>
+            <div class="demo-description">Scanner le code et visualiser son usage.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/security-review</span><br>
+                <span class="comment"># Analyse XSS, injection, auth, data exposure</span><br>
+                <span class="comment"># Niveaux de sévérité colorés</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/stats</span><br>
+                <span class="comment"># Dashboard : usage quotidien, streaks, modèles</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">/security-review</span>
+                <span class="feature-tag">/stats</span>
+                <span class="feature-tag">/insights</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 20d — Micro-démo : Output Styles + Sandbox -->
+        <div id="micro-styles" class="step slide-micro-demo"
+             data-x="600" data-y="-1400" data-z="200"
+             data-rotate-y="5">
+            <div class="demo-number">Micro-démo</div>
+            <h2>Personnaliser Claude</h2>
+            <div class="demo-description">Changer le ton sans perdre les capacités. Sécuriser l'exécution.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/output-style learning</span><br>
+                <span class="comment"># Mode pédagogique : explique + TODO markers</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/sandbox</span><br>
+                <span class="comment"># Isolation OS : filesystem + réseau contrôlés</span><br>
+                <span class="comment"># -84% de prompts de permission !</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">Output Styles</span>
+                <span class="feature-tag">Sandbox</span>
+                <span class="feature-tag">/loop</span>
             </div>
         </div>
 
         <!-- SLIDE 21 — La Plateforme Complète -->
         <div id="plateforme" class="step slide-content"
-             data-x="200" data-y="-1200" data-z="400"
+             data-x="200" data-y="-1800" data-z="400"
              data-rotate-y="0">
             <h2>La Plateforme</h2>
             <div class="ecosystem-grid">
@@ -495,28 +577,28 @@
                     <div><span class="eco-label">Agent SDK</span><br><span class="eco-desc">Python / TypeScript</span></div>
                 </div>
                 <div class="ecosystem-item">
-                    <span class="eco-icon">&#128101;</span>
-                    <div><span class="eco-label">Agent Teams</span><br><span class="eco-desc">Multi-Claude collaboration</span></div>
+                    <span class="eco-icon">&#128268;</span>
+                    <div><span class="eco-label">Plugins</span><br><span class="eco-desc">9 000+ sur le marketplace</span></div>
                 </div>
                 <div class="ecosystem-item">
                     <span class="eco-icon">&#128260;</span>
-                    <div><span class="eco-label">CI/CD</span><br><span class="eco-desc">GitHub Actions, GitLab</span></div>
+                    <div><span class="eco-label">CI/CD</span><br><span class="eco-desc">GitHub Actions, Slack</span></div>
                 </div>
                 <div class="ecosystem-item">
                     <span class="eco-icon">&#127760;</span>
-                    <div><span class="eco-label">Web &amp; Remote</span><br><span class="eco-desc">claude.ai, teleport</span></div>
+                    <div><span class="eco-label">Web &amp; Remote</span><br><span class="eco-desc">claude.ai, teleport, /rc</span></div>
                 </div>
                 <div class="ecosystem-item">
                     <span class="eco-icon">&#128274;</span>
-                    <div><span class="eco-label">Entreprise</span><br><span class="eco-desc">SSO, audit, managed</span></div>
-                </div>
-                <div class="ecosystem-item">
-                    <span class="eco-icon">&#128268;</span>
-                    <div><span class="eco-label">Plugins</span><br><span class="eco-desc">Marketplace communautaire</span></div>
+                    <div><span class="eco-label">Entreprise</span><br><span class="eco-desc">SSO, ZDR, managed settings</span></div>
                 </div>
                 <div class="ecosystem-item">
                     <span class="eco-icon">&#128241;</span>
-                    <div><span class="eco-label">Headless</span><br><span class="eco-desc">Scripting, automation</span></div>
+                    <div><span class="eco-label">Headless</span><br><span class="eco-desc">Scripting, JSON, pipes</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#127912;</span>
+                    <div><span class="eco-label">Chrome</span><br><span class="eco-desc">Browser automation</span></div>
                 </div>
             </div>
             <p class="hint">Claude Code n'est pas un outil. C'est une plateforme.</p>
@@ -528,23 +610,24 @@
 
         <!-- SLIDE 22 — Récap -->
         <div id="recap" class="step slide-content"
-             data-x="1400" data-y="-1200" data-z="200"
+             data-x="1400" data-y="-1800" data-z="200"
              data-rotate-y="5">
             <h2>Récap Express</h2>
             <ul class="recap-list">
                 <li><span class="recap-cmd">/init + CLAUDE.md</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Mémoire du projet</span></li>
-                <li><span class="recap-cmd">Plan mode</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Exploration safe</span></li>
+                <li><span class="recap-cmd">Plan mode + /fork</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Exploration safe</span></li>
                 <li><span class="recap-cmd">Ctrl+V + @fichier</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Contexte riche</span></li>
-                <li><span class="recap-cmd">/diff + /cost + /context</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Contrôle total</span></li>
-                <li><span class="recap-cmd">/batch + Agent Teams</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Parallélisme</span></li>
-                <li><span class="recap-cmd">/commit + /review</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Git intégré</span></li>
-                <li><span class="recap-cmd">Hooks + Skills</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Personnalisation</span></li>
+                <li><span class="recap-cmd">/diff + /cost + /rewind</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Contrôle total</span></li>
+                <li><span class="recap-cmd">/batch + Worktrees</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Parallélisme</span></li>
+                <li><span class="recap-cmd">Git + /security-review</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Qualité intégrée</span></li>
+                <li><span class="recap-cmd">Hooks + Skills + Plugins</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Personnalisation</span></li>
+                <li><span class="recap-cmd">/rc + Chrome + Web</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Partout, tout le temps</span></li>
             </ul>
         </div>
 
         <!-- SLIDE 23 — À vous de jouer ! -->
         <div id="quiz" class="step slide-quiz"
-             data-x="2800" data-y="-1000" data-z="0"
+             data-x="2800" data-y="-1600" data-z="0"
              data-rotate-z="-2"
              data-scale="1.2">
             <h2>A vous de jouer !</h2>
@@ -555,7 +638,7 @@
 
         <!-- SLIDE 24 — Merci & Ressources -->
         <div id="merci" class="step slide-content"
-             data-x="4000" data-y="-800" data-z="0"
+             data-x="4000" data-y="-1400" data-z="0"
              data-rotate-z="0">
             <h2>Merci !</h2>
             <div class="code-block">
@@ -563,9 +646,10 @@
             </div>
             <ol class="lessons">
                 <li>CLAUDE.md = votre meilleur investissement</li>
-                <li>Plan mode avant d'agir</li>
+                <li>Plan mode + /fork avant d'agir</li>
                 <li>Les commandes (<code>/</code>, <code>Ctrl+</code>) sont vos amis</li>
-                <li>Skills + Hooks = votre workflow sur mesure</li>
+                <li>Skills + Hooks + Plugins = votre workflow sur mesure</li>
+                <li>/rewind + /security-review = filet de sécurité</li>
                 <li>C'est un coéquipier, pas un remplaçant</li>
             </ol>
             <p class="hint" style="margin-top:30px">Questions ?</p>
