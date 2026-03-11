@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Claude Code — Du Prompt au Produit</title>
+    <meta name="description" content="Présentation interactive de Claude Code : construire un quiz multijoueur en live">
+    <meta name="author" content="Stéphane Leroy">
+
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/web-fonts.css" rel="stylesheet" type="text/css">
+    <link href="css/claude-code.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="js/impress.js"></script>
+</head>
+<body class="impress-not-supported">
+
+    <div class="fallback-message">
+        <p>Votre navigateur <b>ne supporte pas les fonctionnalités requises</b> par impress.js.</p>
+        <p>Utilisez la dernière version de <b>Chrome</b>, <b>Safari</b> ou <b>Firefox</b>.</p>
+    </div>
+
+    <div class="cc-bg"></div>
+
+    <div id="impress" data-width="1100" data-height="768">
+
+        <!-- ═══════════════════════════════════════════
+             ACTE 1 : L'ACCROCHE
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 1 — Titre -->
+        <div id="titre" class="step slide-title"
+             data-x="0" data-y="0" data-z="0"
+             data-scale="1">
+            <h1>Claude Code</h1>
+            <div class="subtitle">Du Prompt au Produit</div>
+            <div class="author">Stéphane Leroy</div>
+        </div>
+
+        <!-- SLIDE 2 — Le Pari -->
+        <div id="pari" class="step slide-content"
+             data-x="1400" data-y="0" data-z="0"
+             data-rotate-z="2">
+            <h2>Le Pari</h2>
+            <p class="big-text">Et si on construisait un jeu...<br><span class="highlight">ensemble ?</span></p>
+            <p>Un quiz multijoueur. En live. Devant vous.</p>
+            <p>Et à la fin... <span class="highlight">vous y jouerez.</span></p>
+        </div>
+
+        <!-- SLIDE 3 — C'est quoi Claude Code ? -->
+        <div id="cest-quoi" class="step slide-content"
+             data-x="2800" data-y="0" data-z="0"
+             data-rotate-z="0">
+            <h2>C'est quoi Claude Code ?</h2>
+            <div class="flow-schema">
+                <div class="flow-box">Vous</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-box accent">Claude Code</div>
+                <div class="flow-arrow">&#8594;</div>
+                <div class="flow-box">Votre code</div>
+            </div>
+            <p>CLI d'Anthropic — un <span class="highlight">coéquipier</span> dans votre terminal</p>
+            <p class="dim">Pas un autocomplete. Un agent autonome.</p>
+            <p class="dim">Il comprend, planifie, exécute, vérifie, itère.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             ACTE 2 : PREMIERS PAS
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 4 — Installation -->
+        <div id="installation" class="step slide-content"
+             data-x="4000" data-y="600" data-z="-200"
+             data-rotate-y="10">
+            <h2>Installation</h2>
+            <div class="code-block">
+                <span class="prompt">$</span> <span class="command">npm install -g @anthropic-ai/claude-code</span><br>
+                <span class="prompt">$</span> <span class="command">cd mon-projet</span><br>
+                <span class="prompt">$</span> <span class="command">claude</span>
+            </div>
+            <div class="quote">C'est tout. Pas de config, pas de setup.</div>
+        </div>
+
+        <!-- SLIDE 5 — DÉMO 1 : /init et CLAUDE.md -->
+        <div id="demo-1" class="step slide-demo"
+             data-x="5200" data-y="1000" data-z="-400"
+             data-rotate-y="10">
+            <div class="demo-number">Démo 1</div>
+            <h2>/init &amp; CLAUDE.md</h2>
+            <div class="demo-description">La mémoire du projet : conventions, architecture, règles.<br>Se charge automatiquement à chaque session.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/init</span><br>
+                <span class="comment"># Analyse le projet, crée CLAUDE.md</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/memory</span><br>
+                <span class="comment"># Voir et éditer la mémoire persistante</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">/init</span>
+                <span class="feature-tag">CLAUDE.md</span>
+                <span class="feature-tag">/memory</span>
+            </div>
+            <div class="speaker-hint">
+                Glisser un <b>/btw "c'est quoi la diff entre CLAUDE.md projet et user ?"</b> pour montrer les questions en aparté sans polluer le contexte.
+            </div>
+        </div>
+
+        <!-- SLIDE 6 — La Boîte à Outils -->
+        <div id="outils" class="step slide-content"
+             data-x="6200" data-y="1600" data-z="-600"
+             data-rotate-y="5">
+            <h2>La Boîte à Outils</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">&#128214;</div>
+                    <div class="tool-name">Read</div>
+                    <div class="tool-desc">Lire &amp; comprendre</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#9998;</div>
+                    <div class="tool-name">Edit</div>
+                    <div class="tool-desc">Modifier chirurgicalement</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128221;</div>
+                    <div class="tool-name">Write</div>
+                    <div class="tool-desc">Créer des fichiers</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128421;</div>
+                    <div class="tool-name">Bash</div>
+                    <div class="tool-desc">Exécuter des commandes</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128269;</div>
+                    <div class="tool-name">Grep</div>
+                    <div class="tool-desc">Chercher dans le code</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon">&#128194;</div>
+                    <div class="tool-name">Glob</div>
+                    <div class="tool-desc">Trouver des fichiers</div>
+                </div>
+            </div>
+            <p class="hint">Claude choisit le bon outil au bon moment</p>
+        </div>
+
+        <!-- SLIDE 7 — DÉMO 2 : Plan Mode + Scaffolding -->
+        <div id="demo-2" class="step slide-demo"
+             data-x="7000" data-y="2400" data-z="-800"
+             data-rotate-y="5">
+            <div class="demo-number">Démo 2</div>
+            <h2>Plan Mode + Scaffolding</h2>
+            <div class="demo-description">Explorer en sécurité, puis exécuter le plan.</div>
+            <div class="code-block">
+                <span class="comment"># Shift+Tab ×2 → Plan Mode (lecture seule)</span><br>
+                <span class="prompt">plan&gt;</span> <span class="command">Planifie un quiz multijoueur Kahoot-like</span><br><br>
+                <span class="comment"># Shift+Tab → retour Normal Mode</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Exécute le plan</span><br><br>
+                <span class="comment"># Ctrl+T → voir la TodoList en temps réel</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">Plan Mode</span>
+                <span class="feature-tag">Shift+Tab</span>
+                <span class="feature-tag">Write</span>
+                <span class="feature-tag">Bash</span>
+                <span class="feature-tag">Ctrl+T TodoList</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 8 — Le Cycle Agentique -->
+        <div id="cycle" class="step slide-content"
+             data-x="7400" data-y="3400" data-z="-600"
+             data-rotate-y="0">
+            <h2>Le Cycle Agentique</h2>
+            <div class="cycle">
+                <div class="cycle-step">Plan</div>
+                <div class="cycle-arrow">&#8594;</div>
+                <div class="cycle-step">Execute</div>
+                <div class="cycle-arrow">&#8594;</div>
+                <div class="cycle-step">Verify</div>
+                <div class="cycle-arrow">&#8594;</div>
+                <div class="cycle-step">Iterate</div>
+                <div class="cycle-arrow">&#8635;</div>
+            </div>
+            <div class="quote">Claude Code ne code pas en aveugle</div>
+            <p class="dim">La TodoList (<code>Ctrl+T</code>) : Claude s'auto-organise et vous montre sa progression</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             ACTE 3 : LA CONSTRUCTION
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 9 — Références & Contexte -->
+        <div id="references" class="step slide-content"
+             data-x="6800" data-y="4400" data-z="-400"
+             data-rotate-y="-10">
+            <h2>Références &amp; Contexte</h2>
+            <div class="code-block">
+                <span class="comment"># Référencer des fichiers</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Regarde <span style="color:var(--accent-blue)">@server.js</span> et ajoute...</span><br><br>
+                <span class="comment"># Coller une image comme référence</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Ctrl+V (screenshot Kahoot)</span><br>
+                <span class="command">Inspire-toi de ce design...</span>
+            </div>
+            <div class="quote">Montrez-lui ce que vous voulez</div>
+        </div>
+
+        <!-- SLIDE 10 — DÉMO 3 : @fichiers, image, lobby -->
+        <div id="demo-3" class="step slide-demo"
+             data-x="5800" data-y="5200" data-z="-600"
+             data-rotate-y="-10">
+            <div class="demo-number">Démo 3</div>
+            <h2>@fichiers, images &amp; lobby</h2>
+            <div class="demo-description">Coller un screenshot de Kahoot, référencer les fichiers existants,<br>et construire le lobby multi-joueurs.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">[Ctrl+V : screenshot Kahoot]</span><br>
+                <span class="command">Inspire-toi de ce design. Regarde <span style="color:var(--accent-blue)">@server.js</span></span><br>
+                <span class="command">et ajoute un player.html mobile-first + lobby</span><br>
+                <span class="command">avec liste de joueurs via Socket.io sur <span style="color:var(--accent-blue)">@public/admin.html</span></span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">Ctrl+V image</span>
+                <span class="feature-tag">@fichier</span>
+                <span class="feature-tag">Read</span>
+                <span class="feature-tag">Edit</span>
+                <span class="feature-tag">Status bar</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 11 — Commandes interactives -->
+        <div id="commandes" class="step slide-content"
+             data-x="4600" data-y="5800" data-z="-400"
+             data-rotate-y="-5">
+            <h2>Votre Cockpit</h2>
+            <ul class="command-list">
+                <li><span class="cmd">/compact</span> <span class="cmd-desc">Compresser le contexte</span></li>
+                <li><span class="cmd">/cost</span> <span class="cmd-desc">Tokens &amp; coûts en temps réel</span></li>
+                <li><span class="cmd">/diff</span> <span class="cmd-desc">Review interactif des modifications</span></li>
+                <li><span class="cmd">/rewind</span> <span class="cmd-desc">Annuler les changements (Esc×2)</span></li>
+                <li><span class="cmd">/fork</span> <span class="cmd-desc">Cloner la conversation</span></li>
+                <li><span class="cmd">/btw</span> <span class="cmd-desc">Question en aparté</span></li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 12 — DÉMO 4 : Logique quiz + /diff /cost -->
+        <div id="demo-4" class="step slide-demo"
+             data-x="3400" data-y="6200" data-z="-600"
+             data-rotate-y="-5">
+            <div class="demo-number">Démo 4</div>
+            <h2>Logique du quiz + cockpit</h2>
+            <div class="demo-description">Le gros morceau : questions, scoring, timer, UI.<br>Puis review avec /diff, /cost, /context.</div>
+            <div class="code-block">
+                <span class="comment"># Ctrl+T → observer la TodoList pendant le travail</span><br>
+                <span class="comment"># Claude itère en autonomie si erreur</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/diff</span> <span class="comment"># review les changements</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/cost</span> <span class="comment"># combien ça a coûté</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/context</span> <span class="comment"># visualiser le contexte</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">/diff</span>
+                <span class="feature-tag">/cost</span>
+                <span class="feature-tag">/context</span>
+                <span class="feature-tag">Ctrl+T</span>
+                <span class="feature-tag">Agentic loop</span>
+            </div>
+            <div class="speaker-hint">
+                Bon moment pour <b>/btw</b> : poser une question rapide sans casser le flow.<br>
+                Aussi tester <b>Alt+T</b> (Extended Thinking) si le bug est complexe.
+            </div>
+        </div>
+
+        <!-- SLIDE 13 — Gérer son contexte -->
+        <div id="contexte" class="step slide-content"
+             data-x="2200" data-y="6400" data-z="-200"
+             data-rotate-y="0">
+            <h2>Gérer Son Contexte</h2>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/compact</span> <span class="comment"># quand le contexte est plein</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/context</span> <span class="comment"># grille colorée d'utilisation</span><br>
+                <span class="comment"># Alt+T → Extended Thinking pour les problèmes complexes</span>
+            </div>
+            <div class="quote">Comme gérer sa RAM mentale</div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             ACTE 4 : LE POLISH
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 14 — Skills -->
+        <div id="skills" class="step slide-content"
+             data-x="1000" data-y="6000" data-z="0"
+             data-rotate-y="10">
+            <h2>Skills</h2>
+            <h3>Vos raccourcis personnalisés</h3>
+            <ul class="command-list">
+                <li><span class="cmd">/simplify</span> <span class="cmd-desc">Analyser et simplifier le code</span></li>
+                <li><span class="cmd">/batch</span> <span class="cmd-desc">Planifier et exécuter en parallèle</span></li>
+                <li><span class="cmd">/debug</span> <span class="cmd-desc">Diagnostiquer un problème</span></li>
+                <li><span class="cmd">.claude/skills/</span> <span class="cmd-desc">Vos propres workflows</span></li>
+            </ul>
+            <div class="quote">Automatisez vos patterns récurrents</div>
+        </div>
+
+        <!-- SLIDE 14b — Parallélisme -->
+        <div id="parallelisme" class="step slide-content"
+             data-x="-100" data-y="5400" data-z="200"
+             data-rotate-y="10">
+            <h2>Parallélisme</h2>
+            <div class="parallel-levels">
+                <div class="parallel-level">
+                    <span class="level-name">/batch</span>
+                    <span class="level-desc">Orchestre des sub-agents en parallèle (1 terminal, safe)</span>
+                </div>
+                <div class="parallel-level">
+                    <span class="level-name">Worktrees</span>
+                    <span class="level-desc"><code>claude -w nom</code> : copie isolée du repo, branche dédiée</span>
+                </div>
+                <div class="parallel-level">
+                    <span class="level-name">Agent Teams</span>
+                    <span class="level-desc">Multi-terminaux + worktrees + coordination automatique</span>
+                </div>
+            </div>
+            <p class="hint">Worktrees = chaque agent a son propre répertoire, zéro conflit</p>
+        </div>
+
+        <!-- SLIDE 15 — DÉMO 5a : /batch -->
+        <div id="demo-5a" class="step slide-demo"
+             data-x="-1000" data-y="4600" data-z="0"
+             data-rotate-y="10">
+            <div class="demo-number">Démo 5a</div>
+            <h2>/batch — Parallélisme orchestré</h2>
+            <div class="demo-description">Un terminal, plusieurs sub-agents, zéro conflit.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/batch</span><br>
+                <span class="command">En parallèle :</span><br>
+                <span class="command">1) Résultats + barres de distribution (admin)</span><br>
+                <span class="command">2) Feedback joueur ✅/❌ (player)</span><br>
+                <span class="command">3) Podium final avec confettis CSS</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">/batch</span>
+                <span class="feature-tag">Sub-agents</span>
+                <span class="feature-tag">/diff</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 15b — DÉMO 5b : Agent Teams + Worktrees -->
+        <div id="demo-5b" class="step slide-demo"
+             data-x="-1800" data-y="3600" data-z="200"
+             data-rotate-y="5">
+            <div class="demo-number">Démo 5b</div>
+            <h2>Agent Teams + Worktrees</h2>
+            <div class="demo-description">2 Claude dans des worktrees isolés. Zéro conflit de fichiers.</div>
+            <div class="code-block">
+                <span class="comment"># Worktrees : chaque agent a sa copie isolée</span><br>
+                <span class="prompt">$</span> <span class="command">claude -w leaderboard</span> <span class="comment"># T1 : worktree dédié</span><br>
+                <span class="prompt">$</span> <span class="command">claude -w animations</span> <span class="comment"># T2 : worktree dédié</span><br><br>
+                <span class="comment"># --teammate-mode tmux : coordination</span><br>
+                <span style="color:var(--accent-blue)">"Leaderboard prêt, branche worktree-1"</span><br>
+                <span style="color:var(--accent-purple)">"Animations streak terminées, merge OK"</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">Worktrees -w</span>
+                <span class="feature-tag">Agent Teams</span>
+                <span class="feature-tag">Shared tasks</span>
+                <span class="feature-tag">Messages P2P</span>
+                <span class="feature-tag">Ctrl+B</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 16 — Git Workflow -->
+        <div id="git" class="step slide-content"
+             data-x="-2400" data-y="2600" data-z="400"
+             data-rotate-y="0">
+            <h2>Git Workflow Intégré</h2>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">Commit avec un bon message</span> <span class="comment"># git natif</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/security-review</span> <span class="comment"># scan de sécurité</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Crée une PR avec un résumé</span><br><br>
+                <span class="comment"># Worktrees : branches isolées en parallèle</span><br>
+                <span class="prompt">$</span> <span class="command">claude -w feature-branch</span><br>
+                <span class="comment"># /rewind : annuler les changements de Claude</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/rewind</span> <span class="comment"># Esc×2 aussi</span>
+            </div>
+            <div class="quote">Du code local au repo partagé en un prompt</div>
+        </div>
+
+        <!-- SLIDE 17 — DÉMO 6 : Bug fix + Git -->
+        <div id="demo-6" class="step slide-demo"
+             data-x="-2600" data-y="1600" data-z="200"
+             data-rotate-y="-5">
+            <div class="demo-number">Démo 6</div>
+            <h2>Bug fix + Git</h2>
+            <div class="demo-description">On teste, on casse, Claude diagnostique et corrige.<br>Puis commit propre.</div>
+            <div class="code-block">
+                <span class="comment"># On teste le quiz → bug trouvé !</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Quand un joueur se reconnecte,</span><br>
+                <span class="command">son score est perdu. Corrige ça.</span><br><br>
+                <span class="comment"># Diagnostic → Fix → Test → ✅</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Commit et pousse les changements</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">Git natif</span>
+                <span class="feature-tag">Debug loop</span>
+                <span class="feature-tag">/diff</span>
+            </div>
+            <div class="speaker-hint">
+                <b>/rewind</b> : si le fix casse autre chose, montrer Esc×2 pour annuler les changements (code, contexte, ou les deux).<br>
+                <b>/remote-control</b> : moment idéal — scanner le QR code depuis le téléphone et montrer le contrôle à distance.
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             ACTE 5 : LES SUPER-POUVOIRS
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 18 — Hooks -->
+        <div id="hooks" class="step slide-content"
+             data-x="-2200" data-y="600" data-z="600"
+             data-rotate-y="-10">
+            <h2>Les Hooks</h2>
+            <h3>Vos garde-fous automatiques</h3>
+            <div class="code-block">
+                <span class="comment">// .claude/settings.json</span><br>
+                {<br>
+                &nbsp;&nbsp;"hooks": {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"<span style="color:var(--accent-orange)">PreToolUse</span>": [{ "command": "lint" }],<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"<span style="color:var(--accent-orange)">PostToolUse</span>": [{ "command": "test" }],<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;"<span style="color:var(--accent-orange)">Stop</span>": [{ "command": "notify" }]<br>
+                &nbsp;&nbsp;}<br>
+                }
+            </div>
+            <p class="dim">19 événements : PreToolUse, PostToolUse, UserPromptSubmit, Stop...</p>
+            <p class="hint">Comme un code review automatique et instantané</p>
+        </div>
+
+        <!-- SLIDE 19 — MCP -->
+        <div id="mcp" class="step slide-content"
+             data-x="-1600" data-y="-200" data-z="800"
+             data-rotate-y="-10">
+            <h2>MCP : 300+ Super-pouvoirs</h2>
+            <p>Model Context Protocol = connecter Claude Code à <span class="highlight">tout</span></p>
+            <div class="ecosystem-grid">
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128025;</span>
+                    <span class="eco-label">GitHub</span>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128172;</span>
+                    <span class="eco-label">Slack</span>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128451;</span>
+                    <span class="eco-label">PostgreSQL</span>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#127912;</span>
+                    <span class="eco-label">Figma</span>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128027;</span>
+                    <span class="eco-label">Sentry</span>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#9729;</span>
+                    <span class="eco-label">AWS / GCP</span>
+                </div>
+            </div>
+            <div class="quote">Votre terminal parle à vos outils</div>
+        </div>
+
+        <!-- SLIDE 20 — DÉMO 7 : Hooks + Skills custom -->
+        <div id="demo-7" class="step slide-demo"
+             data-x="-800" data-y="-800" data-z="600"
+             data-rotate-y="-5">
+            <div class="demo-number">Démo 7</div>
+            <h2>Hooks &amp; Skills custom</h2>
+            <div class="demo-description">Créer un hook et un skill personnalisé.<br>Ajouter une question au quiz via /add-question.</div>
+            <div class="code-block">
+                <span class="comment"># Créer un custom skill</span><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Crée un skill /add-question dans</span><br>
+                <span class="command">.claude/skills/ qui ajoute une question au quiz</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/add-question</span><br>
+                <span class="command">"Quelle feature permet le travail parallèle ?"</span><br><br>
+                <span class="comment"># QR code + derniers ajustements + commit</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">Custom Hooks</span>
+                <span class="feature-tag">Custom Skills</span>
+                <span class="feature-tag">Git natif</span>
+            </div>
+            <div class="speaker-hint">
+                <b>Chrome integration</b> : "Va sur localhost:3000, vérifie que le quiz s'affiche bien, teste un clic sur une réponse".<br>
+                Nécessite l'extension Claude in Chrome (v1.0.36+).
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             MICRO-DÉMOS : FEATURES BONUS
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 20b — Micro-démo : /fork -->
+        <div id="micro-fork" class="step slide-micro-demo"
+             data-x="0" data-y="-400" data-z="600"
+             data-rotate-y="-5">
+            <div class="demo-number">Micro-démo</div>
+            <h2>/fork — Explorer sans risque</h2>
+            <div class="demo-description">Cloner la conversation pour tester un chemin alternatif.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/fork alternative-ui</span><br>
+                <span class="comment"># Nouvelle session avec tout l'historique</span><br>
+                <span class="comment"># L'original reste intact</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">Et si on refaisait l'UI en dark mode ?</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">/fork</span>
+                <span class="feature-tag">Exploration safe</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 20c — Micro-démo : /security-review + /stats -->
+        <div id="micro-security" class="step slide-micro-demo"
+             data-x="0" data-y="-1000" data-z="400"
+             data-rotate-y="0">
+            <div class="demo-number">Micro-démo</div>
+            <h2>Sécurité &amp; Stats</h2>
+            <div class="demo-description">Scanner le code et visualiser son usage.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/security-review</span><br>
+                <span class="comment"># Analyse XSS, injection, auth, data exposure</span><br>
+                <span class="comment"># Niveaux de sévérité colorés</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/stats</span><br>
+                <span class="comment"># Dashboard : usage quotidien, streaks, modèles</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">/security-review</span>
+                <span class="feature-tag">/stats</span>
+                <span class="feature-tag">/insights</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 20d — Micro-démo : Output Styles + Sandbox -->
+        <div id="micro-styles" class="step slide-micro-demo"
+             data-x="600" data-y="-1400" data-z="200"
+             data-rotate-y="5">
+            <div class="demo-number">Micro-démo</div>
+            <h2>Personnaliser Claude</h2>
+            <div class="demo-description">Changer le ton sans perdre les capacités. Sécuriser l'exécution.</div>
+            <div class="code-block">
+                <span class="prompt">claude&gt;</span> <span class="command">/output-style learning</span><br>
+                <span class="comment"># Mode pédagogique : explique + TODO markers</span><br><br>
+                <span class="prompt">claude&gt;</span> <span class="command">/sandbox</span><br>
+                <span class="comment"># Isolation OS : filesystem + réseau contrôlés</span><br>
+                <span class="comment"># -84% de prompts de permission !</span>
+            </div>
+            <div class="features-shown">
+                <span class="feature-tag">Output Styles</span>
+                <span class="feature-tag">Sandbox</span>
+                <span class="feature-tag">/loop</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 21 — La Plateforme Complète -->
+        <div id="plateforme" class="step slide-content"
+             data-x="200" data-y="-1800" data-z="400"
+             data-rotate-y="0">
+            <h2>La Plateforme</h2>
+            <div class="ecosystem-grid">
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128421;</span>
+                    <div><span class="eco-label">IDE</span><br><span class="eco-desc">VS Code, JetBrains, Desktop</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#129302;</span>
+                    <div><span class="eco-label">Agent SDK</span><br><span class="eco-desc">Python / TypeScript</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128268;</span>
+                    <div><span class="eco-label">Plugins</span><br><span class="eco-desc">9 000+ sur le marketplace</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128260;</span>
+                    <div><span class="eco-label">CI/CD</span><br><span class="eco-desc">GitHub Actions, Slack</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#127760;</span>
+                    <div><span class="eco-label">Web &amp; Remote</span><br><span class="eco-desc">claude.ai, teleport, /rc</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128274;</span>
+                    <div><span class="eco-label">Entreprise</span><br><span class="eco-desc">SSO, ZDR, managed settings</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#128241;</span>
+                    <div><span class="eco-label">Headless</span><br><span class="eco-desc">Scripting, JSON, pipes</span></div>
+                </div>
+                <div class="ecosystem-item">
+                    <span class="eco-icon">&#127912;</span>
+                    <div><span class="eco-label">Chrome</span><br><span class="eco-desc">Browser automation</span></div>
+                </div>
+            </div>
+            <p class="hint">Claude Code n'est pas un outil. C'est une plateforme.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             ACTE 6 : LE GRAND FINALE
+             ═══════════════════════════════════════════ -->
+
+        <!-- SLIDE 22 — Récap -->
+        <div id="recap" class="step slide-content"
+             data-x="1400" data-y="-1800" data-z="200"
+             data-rotate-y="5">
+            <h2>Récap Express</h2>
+            <ul class="recap-list">
+                <li><span class="recap-cmd">/init + CLAUDE.md</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Mémoire du projet</span></li>
+                <li><span class="recap-cmd">Plan mode + /fork</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Exploration safe</span></li>
+                <li><span class="recap-cmd">Ctrl+V + @fichier</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Contexte riche</span></li>
+                <li><span class="recap-cmd">/diff + /cost + /rewind</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Contrôle total</span></li>
+                <li><span class="recap-cmd">/batch + Worktrees</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Parallélisme</span></li>
+                <li><span class="recap-cmd">Git + /security-review</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Qualité intégrée</span></li>
+                <li><span class="recap-cmd">Hooks + Skills + Plugins</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Personnalisation</span></li>
+                <li><span class="recap-cmd">/rc + Chrome + Web</span> <span class="recap-arrow">&#8594;</span> <span class="recap-desc">Partout, tout le temps</span></li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 23 — À vous de jouer ! -->
+        <div id="quiz" class="step slide-quiz"
+             data-x="2800" data-y="-1600" data-z="0"
+             data-rotate-z="-2"
+             data-scale="1.2">
+            <h2>A vous de jouer !</h2>
+            <div class="qr-placeholder">[QR Code ici]</div>
+            <div class="cta">Scannez. Jouez. Apprenez.</div>
+            <p class="dim" style="font-size:24px">10 questions sur ce qu'on vient de voir — le plus rapide gagne !</p>
+        </div>
+
+        <!-- SLIDE 24 — Merci & Ressources -->
+        <div id="merci" class="step slide-content"
+             data-x="4000" data-y="-1400" data-z="0"
+             data-rotate-z="0">
+            <h2>Merci !</h2>
+            <div class="code-block">
+                <span class="prompt">$</span> <span class="command">npm install -g @anthropic-ai/claude-code</span>
+            </div>
+            <ol class="lessons">
+                <li>CLAUDE.md = votre meilleur investissement</li>
+                <li>Plan mode + /fork avant d'agir</li>
+                <li>Les commandes (<code>/</code>, <code>Ctrl+</code>) sont vos amis</li>
+                <li>Skills + Hooks + Plugins = votre workflow sur mesure</li>
+                <li>/rewind + /security-review = filet de sécurité</li>
+                <li>C'est un coéquipier, pas un remplaçant</li>
+            </ol>
+            <p class="hint" style="margin-top:30px">Questions ?</p>
+        </div>
+
+        <!-- OVERVIEW -->
+        <div id="overview" class="step"
+             data-x="2000" data-y="2500" data-z="0"
+             data-scale="9">
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            impress().init();
+        });
+    </script>
+
+</body>
+</html>
